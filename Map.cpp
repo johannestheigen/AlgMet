@@ -1,7 +1,18 @@
 /**
- * WIP Implementation of a Map class in C++ based on examples provided in
- *the Algorithmic Methods course at Norwegian University of Science and Technology (NTNU).
+ * Implementation of a Map class in C++ based on examples provided in
+ * the Algorithmic Methods course at Norwegian University of Science and Technology (NTNU).
  *
+ * Functions include:
+ *
+ * isEmpty(): checks if the Map is empty.
+ * keyExists(): checks if the key is already in use.
+ * put(): puts a new key-value-pair into an array sorted by keys (e.g. key of integer values: 1-2-3...)
+ * get(): retrieves the value of key-value-pair by using its key to retrieve it.
+ * resize(): expands the Map if its capacity is exceeded.
+ *
+ * @author Johannes Nupen Theigen
+ * @version 23.08.2025
+ * @since 23.08.2025
  **/
 #include <iostream>
 #include <string>
@@ -12,15 +23,17 @@ template<typename K, typename V>
 
 class Map {
 
-private:
     struct KeyValuePair {
         K key;
         V value;
-        KeyValuePair(K  k, const V& v) : key(std::move(k)), value(v) {} // Constructor to initialize key and value
-        KeyValuePair() : key(), value() {} // Default constructor to initialize key and value to their default types
+
+        KeyValuePair(K k, const V &v) : key(std::move(k)), value(v) {
+        } // Constructor to initialize key and value
+        KeyValuePair() : key(), value() {
+        } // Default constructor to initialize key and value to their default types
     };
 
-    KeyValuePair* data; // Pointer to an array of KeyValuePair
+    KeyValuePair *data; // Pointer to an array of KeyValuePair
     int amount;
     int capacity;
 
@@ -30,49 +43,63 @@ public:
         capacity = len;
         amount = 0;
     }
-    ~Map () {
+
+    ~Map() {
         delete [] data; // Free allocated memory
     }
 
-    bool isEmpty() {
+    bool isEmpty() const { // Check if the map is empty
         return amount == 0;
     }
 
-    bool isKey(const K& key) {
+    bool keyExists(const K &key) { // Check if the key exists in the map
         for (int i = 0; i < amount; ++i) {
-            if (data[i].key == key) { // Check if the key exists in the map
+            if (data[i].key == key) {
                 return true;
             }
         }
         return false;
     }
 
-    void resize(const int newLenght) {
+    void put(const K &key, const V &value) { // Insert a new key-value pair into the map
+        if (amount == capacity) {
+            resize(capacity + 100);
+        }
+        int newIndex = 0;
+        if (!keyExists(key)) {
+            if (amount < capacity) {
+                while (newIndex < amount && data[newIndex].key < key)
+                    newIndex++;
+                amount++;
+                for (int i = amount - 1; i > newIndex; --i) {
+                    data[i] = data[i - 1];
+                }
+                data[newIndex] = KeyValuePair(key, value);
+            }
+        } else cout << "Key already exists, cannot add duplicate keys.\n";
+    }
+
+    V get(const K &key) const  { // Retrieve the value associated with the given key
+        for (int i = 0;  i < amount;  i++)
+            if (data[i].key == key)  return data[i].value;
+        return V();
+    }
+
+    void resize(const int newLenght) { // Resize the internal array to a new length
         if (newLenght > capacity) {
-            KeyValuePair *newData = new KeyValuePair[newLenght]; // Allocate new array of KeyValuePair
+            KeyValuePair *newData = new KeyValuePair[newLenght];
             for (int i = 0; i < amount; i++) {
-                newData[i] = data[i]; // Copy old key-value pairs to the new array
+                newData[i] = data[i];
             }
-            delete[] data; // Free old array
-            data = newData; // Set the new array as the data
-            capacity = newLenght; // Update capacity
+            delete[] data;
+            data = newData;
+            capacity = newLenght;
         }
     }
 
-    void put(const K& key, const V& value) {
-        if (!isKey(key)) {
-            data[amount++] = KeyValuePair(key, value); // Add new key-value pair if key does not exist
-            if (amount >= capacity) { // Check if capacity needs to be increased
-                resize(capacity + 100);
-            }
-        } else {
-            cout << "Key already exists!";
-        }
-    }
-
-    void display() {
+    void display() { // Display all key-value pairs in the map
         for (int i = 0; i < amount; ++i) {
-            cout << data[i].key <<  " " << data[i].value << "\n"; // Display each key-value pair
+            cout << data[i].key << " " << data[i].value << "\n";
         }
     }
 };
