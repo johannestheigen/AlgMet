@@ -13,7 +13,7 @@
  * resize(): expands the Map if its capacity is exceeded.
  *
  * @author Johannes Nupen Theigen
- * @version 23.08.2025
+ * @version 24.08.2025
  * @since 23.08.2025
  **/
 #include <iostream>
