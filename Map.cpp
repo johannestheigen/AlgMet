@@ -11,7 +11,7 @@
  * resize(): expands the Map if its capacity is exceeded.
  *
  * @author Johannes Nupen Theigen
- * @version 23.08.2025
+ * @version 24.08.2025
  * @since 23.08.2025
  **/
 #include <iostream>
@@ -22,7 +22,6 @@ using namespace std;
 template<typename K, typename V>
 
 class Map {
-
     struct KeyValuePair {
         K key;
         V value;
@@ -52,7 +51,7 @@ public:
         return amount == 0;
     }
 
-    bool keyExists(const K &key) { // Check if the key exists in the map
+    bool findKey(const K &key) const { // Check if the key exists in the map
         for (int i = 0; i < amount; ++i) {
             if (data[i].key == key) {
                 return true;
@@ -66,7 +65,7 @@ public:
             resize(capacity + 100);
         }
         int newIndex = 0;
-        if (!keyExists(key)) {
+        if (!findKey(key)) {
             if (amount < capacity) {
                 while (newIndex < amount && data[newIndex].key < key)
                     newIndex++;
@@ -79,10 +78,40 @@ public:
         } else cout << "Key already exists, cannot add duplicate keys.\n";
     }
 
-    V get(const K &key) const  { // Retrieve the value associated with the given key
-        for (int i = 0;  i < amount;  i++)
-            if (data[i].key == key)  return data[i].value;
+    bool replace(const K &key, const V &oldValue, const V &newValue) { // Replace the value of a key-value pair with a new value
+            bool wasReplaced = false;
+            for (int i = 0; i < amount; i++) {
+                if (data[i].key == key && data[i].value == oldValue) {
+                    data[i].value = newValue;
+                    wasReplaced = true;
+                }
+            }
+            return wasReplaced;
+    }
+
+    V get(const K &key) const {
+        // Retrieve the value associated with the given key
+        for (int i = 0; i < amount; i++) {
+            if (findKey(key)) {
+                return data[i].value;
+            }
+        }
         return V();
+    }
+
+
+    bool remove(const K &key) { // Remove the key-value pair with the given key
+        bool wasRemoved = false;
+        for (int i = 0; i < amount; i++) {
+            if (data[i].key == key) {
+                for (int j = i; j < amount - 1; j++) {
+                    data[j] = data[j + 1];
+                }
+                amount--;
+                wasRemoved = true;
+            }
+        }
+        return wasRemoved;
     }
 
     void resize(const int newLenght) { // Resize the internal array to a new length
@@ -105,7 +134,7 @@ public:
 };
 
 int main() {
-    Map<string, int> map; // Create a Map with string keys and int values
+    Map<string, int> map; // Create a Map with string keys and int values based on my real name and the lenght of each name
 
     map.put("Johannes", 8);
     map.put("Nupen", 5);
