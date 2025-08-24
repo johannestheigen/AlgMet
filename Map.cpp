@@ -7,11 +7,13 @@
  * isEmpty(): checks if the Map is empty.
  * keyExists(): checks if the key is already in use.
  * put(): puts a new key-value-pair into an array sorted by keys (e.g. key of integer values: 1-2-3...)
+ * replace(): replaces the value of a key-value-pair with a new value.
  * get(): retrieves the value of key-value-pair by using its key to retrieve it.
+ * remove(): removes a key-value-pair by using its key to find it.
  * resize(): expands the Map if its capacity is exceeded.
  *
  * @author Johannes Nupen Theigen
- * @version 24.08.2025
+ * @version 23.08.2025
  * @since 23.08.2025
  **/
 #include <iostream>
