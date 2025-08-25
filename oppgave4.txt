@@ -17,8 +17,8 @@ b)
 Vi har postfix-uttrykket 3 4 + 3 * 2 + 5 2 * + 2 *
 
 
-                 2
-    4   3  2  5  5 10  2
-- 3 3 7 7 21 23 23 23 33 66 -
+                       2
+    4   3     2     5  5 10     2
+- 3 3 7 7 21 21 23 23 23 23 33 33 66 -
 
 Svaret på postfix-uttrykket blir 66.
