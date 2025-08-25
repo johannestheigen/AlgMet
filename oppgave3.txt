@@ -1,0 +1,26 @@
+Oppgave 3
+
+a)
+
+Infix-uttrykket: (((4 + 2) + (3 * 2)) + ((3 + 4) * (2 * 5)))
+
+skrives om til POSTFIX: 4 2 + 3 2 * + 3 4 * 2 5 * * +
+
+Stakken underveis ser slik ut:
+
+                      *
+        *       +   * * *
+_ + _ + + + _ + + + + + + + _
+
+
+b)
+
+Infix-uttrykket: ( ( 7 * 3 ) + ( ( ( 4 * 5 ) * ( 3 + 2 ) ) * ( 6 + 3 ) ) )
+
+skrives om til POSTFIX: 7 3 * 4 5 * 3 2 + * 6 3 + * +
+
+Stakken underveis ser slik ut:
+
+              +       +
+        *   * * *   * * *
+_ * _ + + + + + + + + + + + _
