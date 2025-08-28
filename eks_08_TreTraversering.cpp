@@ -166,8 +166,8 @@ void traverserPostorder(Node* node) {
     if (node) {                                  //  Reell node:
         gStakk.push(node);                       //  Legger rota på stakken.
         while (!gStakk.empty()) {                //  Fortsatt noder igjen:
-            node = gStakk.top();                 //  Tar av øverste node.
-            if (node->settFor) {                // Sjekker om barna har blitt besøkt
+            node = gStakk.top();                 // Hent øverste node (uten å fjerne den)
+            if (node->settFor) {                // Sjekker om noden har blitt sett før
                 besok(node); // Besøker noden om den har blitt sett før
                 gStakk.pop(); // Fjerner noden om den har blitt sett før
             } else {
