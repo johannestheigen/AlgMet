@@ -2,7 +2,7 @@
  *   Programeksempel nr 4 - List (selvlaget enkel klasse).
  *
  *   Eksemplet viser en selvlaget implementasjon av container-klassen List.
- *   Det er laget kode for følgende funksjoner:
+ *   Det er laget kode for f?lgende funksjoner:
  *
  *     -  List()
  *     -  ~List
@@ -14,7 +14,7 @@
  *     -  T     removeNo(const int no)   // Fra 1-en (ikke 0-null) og oppover!
  *     -  int   size()
  *
- *   NB: For å formodentlig øke leseligheten og oversikten er medlems-
+ *   NB: For ? formodentlig ?ke leseligheten og oversikten er medlems-
  *       funksjonene bevisst IKKE kommentert etter Doxygen-standarden.
  *
  *   @file     EKS_04_List.CPP
@@ -31,41 +31,41 @@ using namespace std;
  *  Container-klassen List, som er en selvlaget versjon av STLs <list>.
  *
  *  Inneholder en privat struct 'Node', kun med ett datamedlem og en peker til
- *  neste i listen. I tillegg er det en peker ('hode') til starten på lista,
- *  og antall noder i listen. Lista er sortert på 'T' i stigende rekkefølge.
+ *  neste i listen. I tillegg er det en peker ('hode') til starten p? lista,
+ *  og antall noder i listen. Lista er sortert p? 'T' i stigende rekkef?lge.
  */
 template <typename T>                //  'T': fleksibel datatype!
 class List {
 
   private:
-      // NB  NB  NB:  "Java-struct" - se HELT TIL SLUTT på denne filen!
+      // NB  NB  NB:  "Java-struct" - se HELT TIL SLUTT p? denne filen!
       struct Node {                  //  Skjult struct for liste med 'data'.
           T  data;                   //  Unnalagrede 'data'.
           Node* neste;               //  Peker til neste i listen.
           Node(const T d) { data = d;  neste = nullptr; }  //  Constructor.
       };
 
-      Node*  hode;                 //  Dummy hode for å forenkle mye av koden.
-      int    antallNoder;          //  Nåværende antall i listen.
+      Node*  hode;                 //  Dummy hode for ? forenkle mye av koden.
+      int    antallNoder;          //  N?v?rende antall i listen.
 
   public:                            //  Initierer medlemmene:
       List(const T t)  {  hode = new Node(t);  antallNoder = 0;  }
 
       ~List()  {                     //  Destructor - sletter HELE listen:
           Node* np;                  //  Hjelpepeker til neste i listen.
-          while (hode) {             //  Så lenge noe å slette:
+          while (hode) {             //  S? lenge noe ? slette:
               np = hode->neste;      //  Peker til den andre noden.
-              delete hode;           //  Sletter den første noden.
-              hode = np;             //  Setter 'hode' til å peke på
-          }                          //     den nye første noden.
+              delete hode;           //  Sletter den f?rste noden.
+              hode = np;             //  Setter 'hode' til ? peke p?
+          }                          //     den nye f?rste noden.
       }
 
 
       void display() const  {        //  Skriver listens innhold:
           Node* np = hode->neste;    //  Hopper over selve hodet.
-          while (np) {               //  Ikke nådd listens slutt:
+          while (np) {               //  Ikke n?dd listens slutt:
               cout << '\t' << np->data << '\n';  //  Skriver nodens data.
-              np = np->neste;        //  Hopper/går til neste i listen.
+              np = np->neste;        //  Hopper/g?r til neste i listen.
           }
           cout << "\n\tAntall noder i listen:  " << antallNoder << '\n';
       }
@@ -74,7 +74,7 @@ class List {
       bool empty() const  {  return (antallNoder == 0);  }
 
 
-      bool find(const T t) const  {  // Returnerer om 't' er å finne eller ei:
+      bool find(const T t) const  {  // Returnerer om 't' er ? finne eller ei:
           Node* np = hode->neste;       //  Hopper over selve hodet.
           while (np  &&  np->data < t)  //  Blar til der noe evt. ligger:
               np = np->neste;
@@ -93,7 +93,7 @@ class List {
 
            nyNode->neste = np->neste;  //  Hekter inn mellom to noder
            np->neste = nyNode;         //    (evt. helt til slutt):
-           antallNoder++;              //  Øker totalantallet noder.
+           antallNoder++;              //  ?ker totalantallet noder.
       }
 
 
@@ -125,7 +125,7 @@ class List {
                   np = np2;    np2 = np2->neste;  // Pekerne flyttes fremover:
               }
               np->neste = np2->neste;     //  Hekter ut 'np2':
-              returData = np2->data;      //  Tar vare på dens 'data'.
+              returData = np2->data;      //  Tar vare p? dens 'data'.
               delete np2;                 //  Sletter noden 'np2'.
               antallNoder--;              //  Minsker totalantallet noder.
               return returData;           //  Returnerer unnalagrede 'data'.
@@ -157,7 +157,7 @@ int main()  {
 
     if (!liste.remove("Molde"))  cout << "Aa fjerne 'Molde' mislyktes!\n";
     if (!liste.remove("Oslo"))   cout << "Aa fjerne 'Oslo' mislyktes!\n";
-                                             //  "Gjøvik" finnes ikke:
+                                             //  "Gj?vik" finnes ikke:
     if (!liste.remove("Gjovik")) cout << "Aa fjerne 'Gjovik' mislyktes!\n";
 
     liste.display();
@@ -180,6 +180,7 @@ int main()  {
     if (liste2.removeNo(6) == 0)  cout << "Fant ikke nr.6!\n";
 
     cout << "\n\n";
+
     return 0;
 }
 
