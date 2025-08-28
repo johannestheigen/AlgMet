@@ -163,11 +163,21 @@ void traverserLevelorder(Node* node) {
  *   @see     besok(...)
  */
 void traverserPostorder(Node* node) {
-
-//   LAG INNMATEN IFM. OPPGAVE NR.5
-
+    if (node) {                                  //  Reell node:
+        gStakk.push(node);                       //  Legger rota på stakken.
+        while (!gStakk.empty()) {                //  Fortsatt noder igjen:
+            node = gStakk.top();                 //  Tar av øverste node.
+            if (node->settFor) {                // Sjekker om barna har blitt besøkt
+                besok(node); // Besøker noden om den har blitt sett før
+                gStakk.pop(); // Fjerner noden om den har blitt sett før
+            } else {
+                node->settFor = true;
+            }
+            if (node->right && !node->right->settFor)  gStakk.push(node->right); //  Push'er evt. høyre
+            if (node->left && !node->left->settFor)   gStakk.push(node->left);  //  og venstre subtre hvis barna ikke er sett før.
+        }
+    }
 }
-
 
 /**
  *  Traverserer/går gjennom et tre UNDER 'node'
